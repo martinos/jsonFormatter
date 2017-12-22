@@ -14,7 +14,7 @@ type alias Model =
 
 model : Model
 model =
-    { input = "This is empty", output = Ok "coucou" }
+    { input = "{}", output = Ok "{}" }
 
 
 main =
