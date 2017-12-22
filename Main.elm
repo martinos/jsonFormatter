@@ -3,7 +3,6 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import JsonValue
 import Json.Decode as JD
 import Json.Encode as JE
 
@@ -33,8 +32,8 @@ update msg model =
                 | input = str
                 , output =
                     str
-                        |> JD.decodeString JsonValue.decoder
-                        |> Result.map (JsonValue.encode >> JE.encode 2)
+                        |> JD.decodeString JD.value
+                        |> Result.map (JE.encode 2)
               }
             , Cmd.none
             )
