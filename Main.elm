@@ -71,13 +71,13 @@ view model =
 viewOutput output =
     case output of
         Ok str ->
-            div [ class "column is-half" ]
+            div [ class "column" ]
                 [ p [ class "subtitle" ] [ text "Output" ]
                 , pre [] [ str |> text ]
                 ]
 
         Err err ->
-            div [ class "column is-half" ]
+            div [ class "column" ]
                 [ p [ class "subtitle" ] [ text "Output" ]
                 , div [ class "notification is-danger" ] [ p [] [ err |> text ] ]
                 ]
