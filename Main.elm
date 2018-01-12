@@ -48,7 +48,7 @@ view model =
                 [ h1 [ class "title" ]
                     [ text "JSON pretty" ]
                 , div [ class "columns" ]
-                    [ div [ class "column" ]
+                    [ div [ class "column is-half" ]
                         [ p [ class "subtitle" ] [ text "Input" ]
                         , Html.form []
                             [ textarea
@@ -61,7 +61,7 @@ view model =
                                 []
                             ]
                         ]
-                    , viewOutput model.output
+                    , div [ class "column is-half" ] [ viewOutput model.output ]
                     ]
                 ]
             ]
@@ -71,10 +71,10 @@ view model =
 viewOutput output =
     case output of
         Ok str ->
-            div [ class "column" ]
+            div []
                 [ p [ class "subtitle" ]
                     [ text "Output" ]
-                , pre [ id "copy-me", style [ ( "position", "relative" ) ] ]
+                , pre [ id "copy-me", style [ ( "position", "relative" ), ( "overflow", "scroll" ) ] ]
                     [ str |> text
                     , button
                         [ class "copy-button button is-small"
@@ -86,7 +86,7 @@ viewOutput output =
                 ]
 
         Err err ->
-            div [ class "column" ]
+            div []
                 [ p [ class "subtitle" ] [ text "Output" ]
                 , div [ class "notification is-danger" ] [ p [] [ err |> text ] ]
                 ]
