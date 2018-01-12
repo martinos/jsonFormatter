@@ -72,8 +72,17 @@ viewOutput output =
     case output of
         Ok str ->
             div [ class "column" ]
-                [ p [ class "subtitle" ] [ text "Output" ]
-                , pre [] [ str |> text ]
+                [ p [ class "subtitle" ]
+                    [ text "Output" ]
+                , pre [ id "copy-me", style [ ( "position", "relative" ) ] ]
+                    [ str |> text
+                    , button
+                        [ class "copy-button button is-small"
+                        , attribute "data-clipboard-target" "#copy-me"
+                        , style [ ( "position", "absolute" ), ( "top", "0.25rem" ), ( "right", "0.25rem" ) ]
+                        ]
+                        [ "Copy" |> text ]
+                    ]
                 ]
 
         Err err ->
