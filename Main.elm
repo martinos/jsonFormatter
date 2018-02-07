@@ -76,12 +76,7 @@ viewOutput output =
                     [ text "Output" ]
                 , pre [ id "copy-me", style [ ( "position", "relative" ), ( "overflow", "scroll" ) ] ]
                     [ str |> text
-                    , button
-                        [ class "copy-button button is-small"
-                        , attribute "data-clipboard-target" "#copy-me"
-                        , style [ ( "position", "absolute" ), ( "top", "0.25rem" ), ( "right", "0.25rem" ) ]
-                        ]
-                        [ "Copy" |> text ]
+                    , copyButton
                     ]
                 ]
 
@@ -90,6 +85,15 @@ viewOutput output =
                 [ p [ class "subtitle" ] [ text "Output" ]
                 , div [ class "notification is-danger" ] [ p [] [ err |> text ] ]
                 ]
+
+
+copyButton =
+    button
+        [ class "copy-button button is-small"
+        , attribute "data-clipboard-target" "#copy-me"
+        , style [ ( "position", "absolute" ), ( "top", "0.25rem" ), ( "right", "0.25rem" ) ]
+        ]
+        [ "Copy" |> text ]
 
 
 stylesheet : String -> Html msg
