@@ -8275,16 +8275,45 @@ var _user$project$Main$stylesheet = function (url) {
 		},
 		{ctor: '[]'});
 };
+var _user$project$Main$copyButton = A2(
+	_elm_lang$html$Html$button,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('copy-button button is-small'),
+		_1: {
+			ctor: '::',
+			_0: A2(_elm_lang$html$Html_Attributes$attribute, 'data-clipboard-target', '#copy-me'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'top', _1: '0.25rem'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'right', _1: '0.25rem'},
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text('Copy'),
+		_1: {ctor: '[]'}
+	});
 var _user$project$Main$viewOutput = function (output) {
 	var _p0 = output;
 	if (_p0.ctor === 'Ok') {
 		return A2(
 			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('column'),
-				_1: {ctor: '[]'}
-			},
+			{ctor: '[]'},
 			{
 				ctor: '::',
 				_0: A2(
@@ -8312,7 +8341,11 @@ var _user$project$Main$viewOutput = function (output) {
 									{
 										ctor: '::',
 										_0: {ctor: '_Tuple2', _0: 'position', _1: 'relative'},
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'scroll'},
+											_1: {ctor: '[]'}
+										}
 									}),
 								_1: {ctor: '[]'}
 							}
@@ -8322,39 +8355,7 @@ var _user$project$Main$viewOutput = function (output) {
 							_0: _elm_lang$html$Html$text(_p0._0),
 							_1: {
 								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$button,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class('copy-button button is-small'),
-										_1: {
-											ctor: '::',
-											_0: A2(_elm_lang$html$Html_Attributes$attribute, 'data-clipboard-target', '#copy-me'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$style(
-													{
-														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
-														_1: {
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'top', _1: '0.25rem'},
-															_1: {
-																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'right', _1: '0.25rem'},
-																_1: {ctor: '[]'}
-															}
-														}
-													}),
-												_1: {ctor: '[]'}
-											}
-										}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('Copy'),
-										_1: {ctor: '[]'}
-									}),
+								_0: _user$project$Main$copyButton,
 								_1: {ctor: '[]'}
 							}
 						}),
@@ -8364,11 +8365,7 @@ var _user$project$Main$viewOutput = function (output) {
 	} else {
 		return A2(
 			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('column'),
-				_1: {ctor: '[]'}
-			},
+			{ctor: '[]'},
 			{
 				ctor: '::',
 				_0: A2(
@@ -8492,7 +8489,7 @@ var _user$project$Main$view = function (model) {
 												_elm_lang$html$Html$div,
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$class('column'),
+													_0: _elm_lang$html$Html_Attributes$class('column is-half'),
 													_1: {ctor: '[]'}
 												},
 												{
@@ -8547,7 +8544,18 @@ var _user$project$Main$view = function (model) {
 												}),
 											_1: {
 												ctor: '::',
-												_0: _user$project$Main$viewOutput(model.output),
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('column is-half'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _user$project$Main$viewOutput(model.output),
+														_1: {ctor: '[]'}
+													}),
 												_1: {ctor: '[]'}
 											}
 										}),
