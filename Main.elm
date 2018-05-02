@@ -5,15 +5,21 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as JD
 import Json.Encode as JE
+import JsonTree
 
 
 type alias Model =
-    { input : String, output : Result String String }
+    { input : String, output : Result String String, state : JsonTree.State, display : DisplayType }
+
+
+type DisplayType
+    = TreeView
+    | TextView
 
 
 model : Model
 model =
-    { input = "{}", output = Ok "{}" }
+    { input = "{}", output = Ok "{}", state = JsonTree.defaultState, display = TextView }
 
 
 main =
@@ -22,6 +28,8 @@ main =
 
 type Msg
     = SetInput String
+    | SetState JsonTree.State
+    | SetDisplay DisplayType
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -37,6 +45,12 @@ update msg model =
               }
             , Cmd.none
             )
+
+        SetState state ->
+            { model | state = state } ! [ Cmd.none ]
+
+        SetDisplay display ->
+            { model | display = display } ! [ Cmd.none ]
 
 
 view : Model -> Html Msg
@@ -61,29 +75,62 @@ view model =
                                 []
                             ]
                         ]
-                    , div [ class "column is-half" ] [ viewOutput model.output ]
+                    , div [ class "column is-half" ]
+                        [ div [ class "tabs is-centered" ]
+                            [ ul []
+                                [ li [ classList [ ( "is-active", model.display == TextView ) ] ]
+                                    [ a [ onClick <| SetDisplay TextView ] [ text "Text" ] ]
+                                , li [ classList [ ( "is-active", model.display == TreeView ) ] ]
+                                    [ a [ onClick <| SetDisplay TreeView ] [ text "Tree" ] ]
+                                ]
+                            ]
+                        , viewOutput model
+                        ]
                     ]
                 ]
             ]
         ]
 
 
-viewOutput output =
+viewOutput model =
+    case model.display of
+        TreeView ->
+            treeView model.state model.input
+
+        TextView ->
+            textView model.output
+
+
+treeView state input =
+    case input |> JsonTree.parseString of
+        Ok tree ->
+            pre [] [ JsonTree.view tree config state ]
+
+        Err err ->
+            div []
+                [ div [ class "notification is-danger" ] [ p [] [ err |> text ] ] ]
+
+
+toggleDisplay display =
+    case display of
+        TextView ->
+            TreeView
+
+        TreeView ->
+            TextView
+
+
+textView output =
     case output of
         Ok str ->
-            div []
-                [ p [ class "subtitle" ]
-                    [ text "Output" ]
-                , pre [ id "copy-me", style [ ( "position", "relative" ), ( "overflow", "scroll" ) ] ]
-                    [ str |> text
-                    , copyButton
-                    ]
+            pre [ id "copy-me", style [ ( "position", "relative" ), ( "overflow", "scroll" ) ] ]
+                [ str |> text
+                , copyButton
                 ]
 
         Err err ->
             div []
-                [ p [ class "subtitle" ] [ text "Output" ]
-                , div [ class "notification is-danger" ] [ p [] [ err |> text ] ]
+                [ div [ class "notification is-danger" ] [ p [] [ err |> text ] ]
                 ]
 
 
@@ -103,3 +150,7 @@ stylesheet url =
         , href url
         ]
         []
+
+
+config =
+    { onSelect = Nothing, toMsg = SetState }
