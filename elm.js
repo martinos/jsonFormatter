@@ -9213,7 +9213,7 @@ var _user$project$Main$textView = function (output) {
 							_0: {ctor: '_Tuple2', _0: 'position', _1: 'relative'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'scroll'},
+								_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'auto'},
 								_1: {ctor: '[]'}
 							}
 						}),

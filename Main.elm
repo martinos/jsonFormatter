@@ -123,7 +123,7 @@ toggleDisplay display =
 textView output =
     case output of
         Ok str ->
-            pre [ id "copy-me", style [ ( "position", "relative" ), ( "overflow", "scroll" ) ] ]
+            pre [ id "copy-me", style [ ( "position", "relative" ), ( "overflow", "auto" ) ] ]
                 [ str |> text
                 , copyButton
                 ]
